@@ -17,17 +17,17 @@ export const AuthProvider = ({ children }) => {
     authenticated: false,
   });
 
-  //   useEffect(() => {
-  //     const loadToken = async () => {
-  //       const token = await SecureStore.getItemAsync(TOKEN_KEY);
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await SecureStore.getItemAsync(TOKEN_KEY);
 
-  //       if (token) {
-  //         setAuthState({ token, authenticated: true });
-  //         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  //       }
-  //     };
-  //     loadToken();
-  //   }, []);
+      if (token) {
+        setAuthState({ token, authenticated: true });
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
+    };
+    loadToken();
+  }, []);
 
   const register = async (fullname, email, password) => {
     try {
@@ -46,17 +46,17 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     //prettier-ignore
     try {
-        console.log("login")
-        const response = await axios.post(`${API_URL}/signin`, { email, password });
-        if (!response.data.error) {
-            setAuthState({ token: response.data.token, authenticated: true });
-            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-            SecureStore.setItemAsync(TOKEN_KEY, response.data.token);
-        }
-        return response.data;
-      } catch (e) {
-          return { error: true, msg: e.message };
+      console.log("login")
+      const response = await axios.post(`${API_URL}/signin`, { email, password });
+      if (!response.data.error) {
+        setAuthState({ token: response.data.token, authenticated: true });
+        axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+        SecureStore.setItemAsync(TOKEN_KEY, response.data.token);
       }
+      return response.data;
+    } catch (e) {
+      return { error: true, msg: e.message };
+    }
   };
 
   const logout = async () => {

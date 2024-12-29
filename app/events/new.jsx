@@ -56,14 +56,12 @@ export default function AddEventScreen() {
   };
 
   const handleSubmit = async () => {
-    // Basic validation
     if (!eventData.title || !eventData.description || !eventData.location || !eventData.category) {
       setError('Please fill in all required fields');
       return;
     }
 
     try {
-      // Create form data for image upload
       const formData = new FormData();
       formData.append('title', eventData.title);
       formData.append('description', eventData.description);
@@ -82,21 +80,9 @@ export default function AddEventScreen() {
         });
       }
 
-      // Your API endpoint for creating events
-      // const response = await fetch('YOUR_API_ENDPOINT', {
-      //   method: 'POST',
-      //   body: formData,
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // });
 
-      // if (response.ok) {
-      //   router.push('/events');
-      // }
 
       console.log('Event data to be sent:', formData);
-      // After successful submission, navigate back
       router.back();
     } catch (err) {
       setError('Failed to create event. Please try again.');
@@ -120,19 +106,17 @@ export default function AddEventScreen() {
           <View className="p-6 pt-12">
             <BlurView intensity={60} tint="light" className="rounded-3xl overflow-hidden">
               <View className="p-6">
-                {/* Header */}
                 <View className="mb-6">
                   <Text className="text-3xl font-bold text-gray-800">Create Event</Text>
                   <Text className="text-gray-600 mt-2">Fill in the details for your event</Text>
                 </View>
 
-                {/* Image Upload */}
-                <TouchableOpacity 
+                <TouchableOpacity
                   onPress={pickImage}
                   className="h-48 bg-gray-100 rounded-xl mb-6 items-center justify-center"
                 >
                   {eventData.image ? (
-                    <Image 
+                    <Image
                       source={{ uri: eventData.image }}
                       className="w-full h-full rounded-xl"
                     />
@@ -144,9 +128,7 @@ export default function AddEventScreen() {
                   )}
                 </TouchableOpacity>
 
-                {/* Form Fields */}
                 <View className="space-y-4">
-                  {/* Title */}
                   <View>
                     <Text className="text-gray-700 mb-2 font-semibold">Event Title *</Text>
                     <TextInput
@@ -157,7 +139,6 @@ export default function AddEventScreen() {
                     />
                   </View>
 
-                  {/* Description */}
                   <View>
                     <Text className="text-gray-700 mb-2 font-semibold">Description *</Text>
                     <TextInput
@@ -170,11 +151,10 @@ export default function AddEventScreen() {
                     />
                   </View>
 
-                  {/* Date & Time */}
                   <View className="flex-row space-x-4">
                     <View className="flex-1">
                       <Text className="text-gray-700 mb-2 font-semibold">Date *</Text>
-                      <TouchableOpacity 
+                      <TouchableOpacity
                         onPress={() => setShowDatePicker(true)}
                         className="p-4 bg-white rounded-xl"
                       >
@@ -183,7 +163,7 @@ export default function AddEventScreen() {
                     </View>
                     <View className="flex-1">
                       <Text className="text-gray-700 mb-2 font-semibold">Time *</Text>
-                      <TouchableOpacity 
+                      <TouchableOpacity
                         onPress={() => setShowTimePicker(true)}
                         className="p-4 bg-white rounded-xl"
                       >
@@ -192,7 +172,6 @@ export default function AddEventScreen() {
                     </View>
                   </View>
 
-                  {/* Location */}
                   <View>
                     <Text className="text-gray-700 mb-2 font-semibold">Location *</Text>
                     <TextInput
@@ -203,7 +182,6 @@ export default function AddEventScreen() {
                     />
                   </View>
 
-                  {/* Category Selection */}
                   <View>
                     <Text className="text-gray-700 mb-2 font-semibold">Category *</Text>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -212,9 +190,8 @@ export default function AddEventScreen() {
                           <TouchableOpacity
                             key={category.id}
                             onPress={() => setEventData({ ...eventData, category: category.name })}
-                            className={`p-4 rounded-xl ${
-                              eventData.category === category.name ? 'bg-blue-500' : 'bg-white'
-                            }`}
+                            className={`p-4 rounded-xl ${eventData.category === category.name ? 'bg-blue-500' : 'bg-white'
+                              }`}
                           >
                             <FontAwesome
                               name={category.icon}
@@ -222,9 +199,8 @@ export default function AddEventScreen() {
                               color={eventData.category === category.name ? '#fff' : '#3b82f6'}
                             />
                             <Text
-                              className={`mt-2 ${
-                                eventData.category === category.name ? 'text-white' : 'text-gray-800'
-                              }`}
+                              className={`mt-2 ${eventData.category === category.name ? 'text-white' : 'text-gray-800'
+                                }`}
                             >
                               {category.name}
                             </Text>
@@ -234,7 +210,6 @@ export default function AddEventScreen() {
                     </ScrollView>
                   </View>
 
-                  {/* Price & Capacity */}
                   <View className="flex-row space-x-4">
                     <View className="flex-1">
                       <Text className="text-gray-700 mb-2 font-semibold">Price</Text>
@@ -264,7 +239,6 @@ export default function AddEventScreen() {
                     </Text>
                   ) : null}
 
-                  {/* Submit Button */}
                   <TouchableOpacity
                     onPress={handleSubmit}
                     className="bg-blue-500 p-4 rounded-xl mt-6"
@@ -279,7 +253,6 @@ export default function AddEventScreen() {
           </View>
         </ScrollView>
 
-        {/* Date Picker */}
         {showDatePicker && (
           <DateTimePicker
             value={eventData.date}
@@ -293,7 +266,6 @@ export default function AddEventScreen() {
           />
         )}
 
-        {/* Time Picker */}
         {showTimePicker && (
           <DateTimePicker
             value={eventData.time}
