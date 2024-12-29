@@ -13,7 +13,7 @@ import { BlurView } from "expo-blur";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Link, useRouter } from "expo-router"; // Add useRouter for navigation
+import { Link, useRouter } from "expo-router"; 
 import { getEvents } from "@/api/event";
 
 const CATEGORIES = [
@@ -29,15 +29,14 @@ const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter(); // Use router for navigation
+  const router = useRouter();
 
-  // Fetch events using useEffect
   useEffect(() => {
     const fetchEvents = async () => {
       setLoading(true);
       try {
         const data = await getEvents();
-        setEvents(data); // Update state with fetched events
+        setEvents(data); 
       } catch (error) {
         console.error("Failed to fetch events:", error);
       } finally {
@@ -48,9 +47,13 @@ const HomeScreen = () => {
     fetchEvents();
   }, []);
 
+  const filteredEvents = selectedCategory
+    ? events.filter((event) => event.category === selectedCategory)
+    : events;
+
   const renderEventCard = ({ item }) => (
     <TouchableOpacity
-      className="mr-4 bg-white rounded-2xl overflow-hidden shadow-lg w-72"
+      className="bg-white rounded-2xl overflow-hidden shadow-lg mb-4"
       onPress={() => router.push(`/events/${item._id}`)} // Navigate to event details
     >
       <Image source={{ uri: item.image }} className="w-full h-40" />
@@ -86,6 +89,13 @@ const HomeScreen = () => {
       <StatusBar style="light" />
       <ScrollView className="flex-1">
         <View className="p-6 pt-12">
+          <TouchableOpacity
+            onPress={() => router.push("/events/new")}
+            className="absolute top-6 right-6 bg-blue-500 p-3 rounded-full shadow-lg z-10"
+          >
+            <AntDesign name="plus" size={24} color="#fff" />
+          </TouchableOpacity>
+
           <BlurView
             intensity={60}
             tint="light"
@@ -101,10 +111,10 @@ const HomeScreen = () => {
             </View>
           </BlurView>
 
-          {/* Loading Indicator */}
-          {loading && <Text className="text-center text-gray-600">Loading events...</Text>}
+          {loading && (
+            <Text className="text-center text-gray-600">Loading events...</Text>
+          )}
 
-          {/* Search Bar */}
           <View className="mb-6">
             <View className="flex-row items-center bg-white rounded-xl px-4 shadow-sm">
               <FontAwesome name="search" size={20} color="#3b82f6" />
@@ -118,7 +128,6 @@ const HomeScreen = () => {
             </View>
           </View>
 
-          {/* Categories */}
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -155,15 +164,13 @@ const HomeScreen = () => {
             ))}
           </ScrollView>
 
-          {/* Events */}
           <View className="mb-6">
             <Text className="text-xl font-bold text-gray-800 mb-4">Events</Text>
             <FlatList
-              data={events}
+              data={filteredEvents}
               renderItem={renderEventCard}
               keyExtractor={(item) => item._id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
             />
           </View>
         </View>
