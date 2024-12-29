@@ -11,7 +11,6 @@ export const addEvent = async (eventData) => {
 export const getEvents = async () => {
   try {
     const response = await axios.get(`${API_URL}/events`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching events:', error);
