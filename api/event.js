@@ -1,4 +1,4 @@
-import { API_URL } from "@/constants/apiConfig";
+import { API_URL } from "@/api/apiConfig";
 import axios from "axios";
 import { useState } from "react";
 
