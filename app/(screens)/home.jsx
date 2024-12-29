@@ -10,10 +10,11 @@ import {
   FlatList,
 } from "react-native";
 import { BlurView } from "expo-blur";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { Link } from "expo-router";
 
-// Mock data - replace with your actual data
 const CATEGORIES = [
   { id: "1", name: "Music", icon: "music" },
   { id: "2", name: "Sports", icon: "futbol-o" },
@@ -43,7 +44,6 @@ const EVENTS = [
     price: "$199",
     seats: "20",
   },
-  // Add more events as needed
 ];
 
 const HomeScreen = () => {
@@ -99,6 +99,11 @@ const HomeScreen = () => {
               </Text>
             </View>
           </BlurView>
+          <View className="flex-row items-center gap-3 mb-6">
+            <Link href={"/events/new"}>
+              <AntDesign name="pluscircle" size={24} color="black" />
+            </Link>
+          </View>
 
           <View className="mb-6">
             <View className="flex-row items-center bg-white rounded-xl px-4 shadow-sm">
