@@ -17,6 +17,16 @@ export default function RootLayout() {
         router.replace("/(screens)/home");
       }
       console.log("User Changed");
+    }, []);
+
+    useEffect(() => {
+      console.log(authState?.authenticated);
+      if (!authState?.authenticated && segments[0] !== "(auth)") {
+        router.replace("/(auth)/login");
+      } else {
+        router.replace("/(screens)/home");
+      }
+      console.log("User Changed");
     }, [authState]);
   };
 

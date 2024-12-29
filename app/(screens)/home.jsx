@@ -10,7 +10,7 @@ import {
   FlatList,
 } from "react-native";
 import { BlurView } from "expo-blur";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "expo-router";
@@ -100,7 +100,9 @@ const HomeScreen = () => {
             </View>
           </BlurView>
           <View className="flex-row items-center gap-3 mb-6">
-          <Link href={"/events/new"}><AntDesign name="pluscircle" size={24} color="black" /></Link>
+            <Link href={"/events/new"}>
+              <AntDesign name="pluscircle" size={24} color="black" />
+            </Link>
           </View>
 
           <View className="mb-6">
