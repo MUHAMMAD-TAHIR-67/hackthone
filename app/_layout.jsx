@@ -11,10 +11,10 @@ export default function RootLayout() {
 
     useEffect(() => {
       console.log(authState?.authenticated);
-      if (authState?.authenticated && segments[1] === "Login") {
-        router.replace("/");
+      if (!authState?.authenticated && segments[0] !== "(auth)") {
+        router.replace("/(auth)/login");
       } else {
-        router.replace("(auth)/register");
+        router.replace("/(screens)/home");
       }
       console.log("User Changed");
     }, [authState]);
@@ -22,7 +22,7 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }}></Stack>;
+      <Stack screenOptions={{ headerShown: false }}></Stack>
       <InitialLayout />
     </AuthProvider>
   );

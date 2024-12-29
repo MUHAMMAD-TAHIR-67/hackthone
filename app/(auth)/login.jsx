@@ -13,27 +13,30 @@ import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
-import { login } from "../../api/auth";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { setAuthState } = useAuth();
+  const { onLogin } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!formData.email || !formData.password) {
       return alert("Fill all fields");
     }
 
-    const response = login(formData.email, formData.password);
+    const response = await onLogin(formData.email, formData.password);
 
     if (!response.error) {
       setAuthState({ token: response.token, authenticated: true });
+    } else {
+      return alert(response.msg);
     }
+
+    router.replace("(screens)/home");
   };
 
   return (
@@ -107,12 +110,6 @@ export default function LoginScreen() {
                       Forgot Password?
                     </Text>
                   </TouchableOpacity>
-
-                  {error ? (
-                    <Text className="text-red-500 text-center bg-red-100 p-3 rounded-lg">
-                      {error}
-                    </Text>
-                  ) : null}
 
                   <TouchableOpacity
                     onPress={handleLogin}

@@ -13,12 +13,11 @@ import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
-import { register } from "../../api/auth";
 import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const { setAuthState } = useAuth();
+  const { onRegister } = useAuth();
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -26,20 +25,25 @@ export default function RegisterScreen() {
     confirmPassword: "",
   });
 
-  handleRegister = () => {
-    // if (!formData.fullname || !formData.email || !formData.password) {
-    //   return alert("Fill all fields");
-    // }
+  handleRegister = async () => {
+    if (!formData.fullname || !formData.email || !formData.password) {
+      return alert("Fill all fields");
+    }
 
-    // if (formData.password !== formData.confirmPassword) {
-    //   return alert("Passwords do not match");
-    // }
+    if (formData.password !== formData.confirmPassword) {
+      return alert("Passwords do not match");
+    }
 
-    const response = register(
+    const response = await onRegister(
       formData.fullname,
       formData.email,
       formData.password
     );
+
+    if (response.error) {
+      alert(response.msg);
+      return;
+    }
 
     alert("Account registered successfully");
     router.push("/(auth)/login");
