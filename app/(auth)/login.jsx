@@ -63,12 +63,10 @@ export default function LoginScreen() {
                   </Text>
                 </View>
 
-                <View className="space-y-4">
+                <View className="">
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Email Address
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                    
+                    <View className="flex-row mb-4 items-center bg-gray-200 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="envelope" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -85,10 +83,8 @@ export default function LoginScreen() {
                   </View>
 
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Password
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                
+                    <View className="flex-row items-center bg-gray-200 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
