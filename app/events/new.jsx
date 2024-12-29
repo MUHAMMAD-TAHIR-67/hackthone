@@ -256,8 +256,8 @@ export default function AddEventScreen() {
                               })
                             }
                             className={`p-4 rounded-xl ${eventData.category === category.name
-                                ? "bg-blue-500"
-                                : "bg-white"
+                              ? "bg-blue-500"
+                              : "bg-white"
                               }`}
                           >
                             <FontAwesome
@@ -271,8 +271,8 @@ export default function AddEventScreen() {
                             />
                             <Text
                               className={`mt-2 ${eventData.category === category.name
-                                  ? "text-white"
-                                  : "text-gray-800"
+                                ? "text-white"
+                                : "text-gray-800"
                                 }`}
                             >
                               {category.name}

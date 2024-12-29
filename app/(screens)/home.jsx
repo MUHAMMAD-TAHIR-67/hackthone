@@ -90,7 +90,7 @@ const HomeScreen = () => {
       <ScrollView className="flex-1">
         <View className="p-6 pt-12">
           <TouchableOpacity
-            onPress={() => router.push("/events/new")}
+            onPress={() => router.push("/events/userEvent")}
             className="absolute top-6 right-6 bg-blue-500 p-3 rounded-full shadow-lg z-10"
           >
             <AntDesign name="plus" size={24} color="#fff" />
