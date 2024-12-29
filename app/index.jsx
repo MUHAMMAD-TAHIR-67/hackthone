@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -12,7 +12,7 @@ export default function Index() {
       }}
     >
       <Link href={"/register"}>register</Link>
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Link href={"/login"}>register</Link>
     </View>
   );
 }
