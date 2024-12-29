@@ -68,12 +68,9 @@ export default function LoginScreen() {
                   </Text>
                 </View>
 
-                <View className="space-y-4">
+                <View className="">
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Email Address
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                    <View className="flex-row mb-10 items-center bg-gray-200 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="envelope" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -90,10 +87,7 @@ export default function LoginScreen() {
                   </View>
 
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Password
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                    <View className="flex-row mb-2 items-center bg-gray-200 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -109,10 +103,16 @@ export default function LoginScreen() {
                   </View>
 
                   <TouchableOpacity className="items-end">
-                    <Text className="text-blue-500 font-semibold">
+                    <Text className="text-blue-500 text-xs font-semibold">
                       Forgot Password?
                     </Text>
                   </TouchableOpacity>
+
+                  {error ? (
+                    <Text className="text-red-500 text-center bg-red-100 p-3 rounded-lg">
+                      {error}
+                    </Text>
+                  ) : null}
 
                   <TouchableOpacity
                     onPress={handleLogin}
@@ -123,35 +123,14 @@ export default function LoginScreen() {
                     </Text>
                   </TouchableOpacity>
 
-                  <View className="mt-6">
-                    <Text className="text-center text-gray-600 mb-4">
-                      Or continue with
-                    </Text>
-                    <View className="flex-row justify-center space-x-4">
-                      <TouchableOpacity className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-md">
-                        <FontAwesome name="google" size={24} color="#DB4437" />
-                      </TouchableOpacity>
-                      <TouchableOpacity className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-md">
-                        <FontAwesome name="apple" size={24} color="#000000" />
-                      </TouchableOpacity>
-                      <TouchableOpacity className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-md">
-                        <FontAwesome
-                          name="facebook"
-                          size={24}
-                          color="#4267B2"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-
                   <View className="flex-row justify-center mt-4">
-                    <Text className="text-gray-600">
+                    <Text className="text-gray-600 text-xs">
                       Don't have an account?{" "}
                     </Text>
                     <TouchableOpacity
                       onPress={() => router.push("(auth)/register")}
                     >
-                      <Text className="text-blue-500 font-semibold">
+                      <Text className="text-blue-500 text-sm font-semibold">
                         Sign Up
                       </Text>
                     </TouchableOpacity>
