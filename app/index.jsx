@@ -11,8 +11,11 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Link href={"/register"}>register</Link>
-      <Link href={"/login"}>login</Link>
-    </View>
+      <View className="flex gap-4">
+        <Link className="bg-gray-200" href={"(auth)/register"}>register</Link>
+        <Link className="bg-gray-200" href={"(auth)/login"}>login</Link>
+        <Link className="bg-gray-200" href={"/frontend"}>Frontend</Link>
+      </View>
+    </View >
   );
 }
