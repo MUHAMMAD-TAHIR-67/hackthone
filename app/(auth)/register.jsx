@@ -56,7 +56,6 @@ export default function RegisterScreen() {
         <StatusBar style="light" />
         <ScrollView className="flex-1">
           <View className="flex-1 p-6 justify-center min-h-screen">
-            {/* Card Container */}
             <BlurView
               intensity={60}
               tint="light"
@@ -171,7 +170,9 @@ export default function RegisterScreen() {
                     <Text className="text-gray-600">
                       Already have an account?{" "}
                     </Text>
-                    <TouchableOpacity onPress={() => router.push("/login")}>
+                    <TouchableOpacity
+                      onPress={() => router.push("(auth)/login")}
+                    >
                       <Text className="text-blue-500 font-semibold">
                         Sign In
                       </Text>
