@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,8 @@ import { BlurView } from "expo-blur";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router"; // Add useRouter for navigation
+import { getEvents } from "@/api/event";
 
 const CATEGORIES = [
   { id: "1", name: "Music", icon: "music" },
@@ -23,42 +24,42 @@ const CATEGORIES = [
   { id: "5", name: "Tech", icon: "laptop" },
 ];
 
-const EVENTS = [
-  {
-    id: "1",
-    title: "Summer Music Festival",
-    date: "2024-06-15",
-    location: "Central Park",
-    category: "Music",
-    image: "/api/placeholder/400/200",
-    price: "$50",
-    seats: "20",
-  },
-  {
-    id: "2",
-    title: "Tech Conference 2024",
-    date: "2024-07-20",
-    location: "Convention Center",
-    category: "Tech",
-    image: "/api/placeholder/400/200",
-    price: "$199",
-    seats: "20",
-  },
-];
-
 const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter(); // Use router for navigation
+
+  // Fetch events using useEffect
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      try {
+        const data = await getEvents();
+        setEvents(data); // Update state with fetched events
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const renderEventCard = ({ item }) => (
-    <TouchableOpacity className="mr-4 bg-white rounded-2xl overflow-hidden shadow-lg w-72">
+    <TouchableOpacity
+      className="mr-4 bg-white rounded-2xl overflow-hidden shadow-lg w-72"
+      onPress={() => router.push(`/events/${item._id}`)} // Navigate to event details
+    >
       <Image source={{ uri: item.image }} className="w-full h-40" />
       <View className="p-4">
         <View className="flex-row justify-between items-center mb-2">
           <Text className="text-sm font-semibold text-blue-500">
             {item.category}
           </Text>
-          <Text className="text-sm font-bold text-green-500">{item.price}</Text>
+          <Text className="text-sm font-bold text-green-500">${item.price}</Text>
         </View>
         <Text className="text-lg font-bold text-gray-800 mb-1">
           {item.title}
@@ -99,12 +100,11 @@ const HomeScreen = () => {
               </Text>
             </View>
           </BlurView>
-          <View className="flex-row items-center gap-3 mb-6">
-            <Link href={"/events/new"}>
-              <AntDesign name="pluscircle" size={24} color="black" />
-            </Link>
-          </View>
 
+          {/* Loading Indicator */}
+          {loading && <Text className="text-center text-gray-600">Loading events...</Text>}
+
+          {/* Search Bar */}
           <View className="mb-6">
             <View className="flex-row items-center bg-white rounded-xl px-4 shadow-sm">
               <FontAwesome name="search" size={20} color="#3b82f6" />
@@ -118,6 +118,7 @@ const HomeScreen = () => {
             </View>
           </View>
 
+          {/* Categories */}
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -154,27 +155,13 @@ const HomeScreen = () => {
             ))}
           </ScrollView>
 
+          {/* Events */}
           <View className="mb-6">
-            <Text className="text-xl font-bold text-gray-800 mb-4">
-              Recent Events
-            </Text>
+            <Text className="text-xl font-bold text-gray-800 mb-4">Events</Text>
             <FlatList
-              data={EVENTS}
+              data={events}
               renderItem={renderEventCard}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-
-          <View className="mb-6">
-            <Text className="text-xl font-bold text-gray-800 mb-4">
-              Popular Events
-            </Text>
-            <FlatList
-              data={EVENTS.slice().reverse()}
-              renderItem={renderEventCard}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
               horizontal
               showsHorizontalScrollIndicator={false}
             />
