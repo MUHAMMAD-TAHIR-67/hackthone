@@ -29,10 +29,11 @@ export const AuthProvider = ({ children }) => {
     loadToken();
   }, []);
 
-  const register = async (email, password) => {
+  const register = async (fullname, email, password) => {
     try {
       console.log("register");
       const response = await axios.post(`${API_URL}/signup`, {
+        fullname,
         email,
         password,
       });
@@ -66,10 +67,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const value = {
-    onRegister: register,
-    onLogin: login,
-    onLogout: logout,
     authState,
+    setAuthState,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -13,33 +13,36 @@ import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
+import { register } from "../../api/auth";
+import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterScreen() {
   const router = useRouter();
+  const { setAuthState } = useAuth();
   const [formData, setFormData] = useState({
-    name: "",
+    fullname: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
 
-  const handleRegister = () => {
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
-      setError("All fields are required");
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-    console.log("Registration data:", formData);
-    // router.push('/(tabs)/home');
+  handleRegister = () => {
+    // if (!formData.fullname || !formData.email || !formData.password) {
+    //   return alert("Fill all fields");
+    // }
+
+    // if (formData.password !== formData.confirmPassword) {
+    //   return alert("Passwords do not match");
+    // }
+
+    const response = register(
+      formData.fullname,
+      formData.email,
+      formData.password
+    );
+
+    alert("Account registered successfully");
+    router.push("/(auth)/login");
   };
 
   return (
@@ -76,15 +79,14 @@ export default function RegisterScreen() {
 
                 <View className="gap-3">
                   <View>
-                   
                     <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="user" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
                         placeholder="Enter your full name"
-                        value={formData.name}
+                        value={formData.fullname}
                         onChangeText={(text) =>
-                          setFormData({ ...formData, name: text })
+                          setFormData({ ...formData, fullname: text })
                         }
                         placeholderTextColor="#64748b"
                       />
@@ -92,7 +94,6 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                   
                     <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="envelope" size={20} color="#3b82f6" />
                       <TextInput
@@ -110,7 +111,6 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                    
                     <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
@@ -127,7 +127,6 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                   
                     <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
@@ -143,14 +142,8 @@ export default function RegisterScreen() {
                     </View>
                   </View>
 
-                  {error ? (
-                    <Text className="text-red-500 text-center bg-red-100 p-3 rounded-lg">
-                      {error}
-                    </Text>
-                  ) : null}
-
                   <TouchableOpacity
-                    onPress={handleRegister}
+                    onPress={() => handleRegister()}
                     className="bg-blue-500 p-4 rounded-xl mt-6 shadow-lg"
                   >
                     <Text className="text-white text-center font-semibold text-lg">
@@ -166,7 +159,7 @@ export default function RegisterScreen() {
                       onPress={() => router.push("(auth)/login")}
                     >
                       <Text className="text-blue-500 font-semibold">
-                        <Link href={"/login"} >Sign In</Link>
+                        <Link href={"/login"}>Sign In</Link>
                       </Text>
                     </TouchableOpacity>
                   </View>
