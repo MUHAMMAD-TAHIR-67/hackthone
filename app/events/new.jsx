@@ -53,42 +53,49 @@ export default function AddEventScreen() {
     if (!result.canceled) {
       setEventData({ ...eventData, image: result.assets[0].uri });
     }
+    console.log('result', result)
+
   };
 
   const handleSubmit = async () => {
-    if (!eventData.title || !eventData.description || !eventData.location || !eventData.category) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
     try {
-      const formData = new FormData();
-      formData.append('title', eventData.title);
-      formData.append('description', eventData.description);
-      formData.append('date', eventData.date.toISOString());
-      formData.append('time', eventData.time.toISOString());
-      formData.append('location', eventData.location);
-      formData.append('category', eventData.category);
-      formData.append('price', eventData.price);
-      formData.append('capacity', eventData.capacity);
-
+      let imageUrl = '';
       if (eventData.image) {
-        formData.append('image', {
+        const data = new FormData();
+        data.append('file', {
           uri: eventData.image,
           type: 'image/jpeg',
           name: 'event-image.jpg',
         });
+        data.append('upload_preset', 'first-Time'); // Replace with your Cloudinary preset
+        data.append('cloud_name', 'dtesdhvro'); // Replace with your Cloudinary cloud name
+  
+        console.log('Uploading image...');
+        const response = await fetch('https://api.cloudinary.com/v1_1/dtesdhvro/image/upload', {
+          method: 'POST',
+          body: data,
+        });
+  
+        const result = await response.json();
+        console.log('Cloudinary response:', result);
+  
+        if (result.secure_url) {
+          imageUrl = result.secure_url;
+          console.log('Image uploaded successfully. URL:', imageUrl);
+        } else {
+          console.error('Failed to retrieve secure_url from Cloudinary response:', result);
+          return;
+        }
       }
-
-
-
-      console.log('Event data to be sent:', formData);
-      router.back();
+  
+      // Continue with form submission logic
     } catch (err) {
       setError('Failed to create event. Please try again.');
-      console.error(err);
+      console.error('Error during submission:', err);
     }
   };
+  
+
 
   return (
     <ImageBackground

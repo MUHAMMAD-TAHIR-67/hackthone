@@ -2,8 +2,9 @@ import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
+import { API_URL } from "@/constants/apiConfig";
 
-const API_URL = "http://192.168.137.252:6969/api";
+
 const TOKEN_KEY = "jwt";
 const AuthContext = createContext({});
 
