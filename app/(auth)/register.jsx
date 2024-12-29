@@ -9,7 +9,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
@@ -74,12 +74,10 @@ export default function RegisterScreen() {
                   </Text>
                 </View>
 
-                <View className="space-y-4">
+                <View className="gap-3">
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Full Name
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                   
+                    <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="user" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -94,10 +92,8 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Email Address
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                   
+                    <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="envelope" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -114,10 +110,8 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Password
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                    
+                    <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
                         className="flex-1 p-4 ml-2"
@@ -133,13 +127,11 @@ export default function RegisterScreen() {
                   </View>
 
                   <View>
-                    <Text className="text-gray-700 mb-2 font-semibold">
-                      Confirm Password
-                    </Text>
-                    <View className="flex-row items-center bg-white bg-opacity-80 rounded-xl px-4">
+                   
+                    <View className="flex-row items-center bg-gray-100 bg-opacity-80 rounded-xl px-4">
                       <FontAwesome name="lock" size={20} color="#3b82f6" />
                       <TextInput
-                        className="flex-1 p-4 ml-2"
+                        className="flex-1 p-4 ml-2 "
                         placeholder="Confirm your password"
                         secureTextEntry
                         value={formData.confirmPassword}
@@ -174,7 +166,7 @@ export default function RegisterScreen() {
                       onPress={() => router.push("(auth)/login")}
                     >
                       <Text className="text-blue-500 font-semibold">
-                        Sign In
+                        <Link href={"/login"} >Sign In</Link>
                       </Text>
                     </TouchableOpacity>
                   </View>
