@@ -116,7 +116,7 @@ export default function AddEventScreen() {
       console.error("Error during submission:", err);
     }
   };
-  
+
 
 
   return (
@@ -255,11 +255,10 @@ export default function AddEventScreen() {
                                 category: category.name,
                               })
                             }
-                            className={`p-4 rounded-xl ${
-                              eventData.category === category.name
+                            className={`p-4 rounded-xl ${eventData.category === category.name
                                 ? "bg-blue-500"
                                 : "bg-white"
-                            }`}
+                              }`}
                           >
                             <FontAwesome
                               name={category.icon}
@@ -271,16 +270,10 @@ export default function AddEventScreen() {
                               }
                             />
                             <Text
-<<<<<<< HEAD
-                              className={`mt-2 ${eventData.category === category.name ? 'text-white' : 'text-gray-800'
-                                }`}
-=======
-                              className={`mt-2 ${
-                                eventData.category === category.name
+                              className={`mt-2 ${eventData.category === category.name
                                   ? "text-white"
                                   : "text-gray-800"
-                              }`}
->>>>>>> 7bfdd82a3407b7563e6af2d17b79909ab2e941f4
+                                }`}
                             >
                               {category.name}
                             </Text>
