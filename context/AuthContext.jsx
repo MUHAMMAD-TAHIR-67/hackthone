@@ -17,17 +17,17 @@ export const AuthProvider = ({ children }) => {
     authenticated: false,
   });
 
-  //   useEffect(() => {
-  //     const loadToken = async () => {
-  //       const token = await SecureStore.getItemAsync(TOKEN_KEY);
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await SecureStore.getItemAsync(TOKEN_KEY);
 
-  //       if (token) {
-  //         setAuthState({ token, authenticated: true });
-  //         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  //       }
-  //     };
-  //     loadToken();
-  //   }, []);
+      if (token) {
+        setAuthState({ token, authenticated: true });
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
+    };
+    loadToken();
+  }, []);
 
   const register = async (fullname, email, password) => {
     try {
