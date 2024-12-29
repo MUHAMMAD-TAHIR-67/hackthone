@@ -7,3 +7,7 @@ export const addEvent = async (eventData) => {
   console.log(response.data);
   return response.data;
 };
+
+export const getEvents = async () => {};
+
+export const getEventById = async (eventId) => {};
